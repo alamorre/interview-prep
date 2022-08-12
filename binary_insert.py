@@ -1,44 +1,47 @@
 from typing import List
 
 class Insert():
-    def passive_binary_search(self, search_term: str, sorted_terms: List[str]):
-        # terminates at where low and high match
-        low = 0
-        high = len(sorted_terms) - 1
-        mid = (low + high) // 2
+    def binary_search(
+            self, 
+            search_term: str, 
+            sorted_terms: List[str], 
+            start: int, 
+            end: int
+        ):
+        # Base cases, if terminated - determine where to place the component
+        if start == end:
+            if sorted_terms[start] > search_term:
+                return start
+            else:
+                return start+1
+        elif start > end:
+            return start
 
-        while low <= high:
-            compare_term = sorted_terms[mid]
+        mid = (start+end) // 2
+        if sorted_terms[mid] < search_term:
+            return self.binary_search(search_term, sorted_terms, mid+1, end)
+        elif sorted_terms[mid] > search_term:
+            return self.binary_search(search_term, sorted_terms, start, mid-1)
+        else:
+            return mid
+        
 
-            if search_term == compare_term:
-                return mid 
-            elif search_term < compare_term:
-                high = mid - 1
-                mid = (low + high) // 2
-            elif search_term > compare_term:
-                low = mid + 1
-                mid = (low + high) // 2        
-
-        return mid # Can be lower or higher
 
     def binary_insert(self, insert_term: str, sorted_terms: List[str]) -> List[str]:
         if len(sorted_terms) == 0:
             return [insert_term]
 
-        area_to_insert = self.passive_binary_search(
+        index = self.binary_search(
             search_term=insert_term, 
-            sorted_terms=sorted_terms
+            sorted_terms=sorted_terms,
+            start=0,
+            end=len(sorted_terms) - 1
         )
-        print(area_to_insert)
-        print(insert_term, sorted_terms[area_to_insert])
-        if insert_term < sorted_terms[area_to_insert]:
-            sorted_terms.insert(area_to_insert, insert_term)
-        else:
-            sorted_terms.insert(area_to_insert + 1, insert_term)
         
+        sorted_terms.insert(index, insert_term)
         return sorted_terms
 
-insert_term = 'Aaron'
+insert_term = 'Cam'
 terms = ['Adam', 'Bill', 'Nick', 'Ryland', 'Zak']
 new_list = Insert().binary_insert(insert_term=insert_term, sorted_terms=terms)
 print(new_list)
