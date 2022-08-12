@@ -1,29 +1,28 @@
 from typing import List
 
 class Insert():
-    def binary_search(
-            self, 
-            search_term: str, 
-            sorted_terms: List[str], 
-            start: int, 
-            end: int
-        ):
-        # Base cases, if terminated - determine where to place the component
-        if start == end:
-            if sorted_terms[start] > search_term:
-                return start
-            else:
-                return start+1
-        elif start > end:
-            return start
+    def binary_search(self, search_term: str, sorted_terms: List[str]):
+        low = 0
+        high = len(sorted_terms) - 1
 
-        mid = (start+end) // 2
-        if sorted_terms[mid] < search_term:
-            return self.binary_search(search_term, sorted_terms, mid+1, end)
-        elif sorted_terms[mid] > search_term:
-            return self.binary_search(search_term, sorted_terms, start, mid-1)
-        else:
-            return mid
+        while low <= high:
+            mid = (low + high) // 2
+
+            # Base cases, if terminated - determine where to place the component
+            if low == high:
+                if sorted_terms[low] > search_term:
+                    return low
+                else:
+                    return low + 1
+            elif low > high:
+                return low
+
+            if search_term < sorted_terms[mid]: # If our index is lower, bring high down
+                high = mid - 1
+            elif search_term > sorted_terms[mid]: # If our index is higher, bring low up
+                low = mid + 1
+            else:
+                return mid
         
 
 
@@ -33,9 +32,7 @@ class Insert():
 
         index = self.binary_search(
             search_term=insert_term, 
-            sorted_terms=sorted_terms,
-            start=0,
-            end=len(sorted_terms) - 1
+            sorted_terms=sorted_terms
         )
         
         sorted_terms.insert(index, insert_term)
