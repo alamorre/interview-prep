@@ -14,8 +14,6 @@ class Insert():
                     return low
                 else:
                     return low + 1
-            elif low > high:
-                return low
 
             if search_term < sorted_terms[mid]: # If our index is lower, bring high down
                 high = mid - 1
@@ -23,6 +21,9 @@ class Insert():
                 low = mid + 1
             else:
                 return mid
+        
+        if low > high:
+                return low
         
 
 
@@ -38,7 +39,7 @@ class Insert():
         sorted_terms.insert(index, insert_term)
         return sorted_terms
 
-insert_term = 'Cam'
+insert_term = 'Aaron'
 terms = ['Adam', 'Bill', 'Nick', 'Ryland', 'Zak']
 new_list = Insert().binary_insert(insert_term=insert_term, sorted_terms=terms)
 print(new_list)
