@@ -14,10 +14,11 @@ class Solution:
         if a * b >= 0:
             # sum of two positive integers
             while y:
-                x, y = x ^ y, (x & y) << 1
+                x, y = x ^ y, (x & y) << 1 # *2
         else:
             # difference of two positive integers
             while y:
-                x, y = x ^ y, ((~x) & y) << 1
+                x, y = x ^ y, ((~x) & y) << 1 # *2
         
         return x * sign
+

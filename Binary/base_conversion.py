@@ -13,7 +13,7 @@ class Codec:
         sign = 1 if node.val < 0 else 0
         num = abs(node.val)
         bits = [sign] + [0] * 14
-        exponent = int(math.log2(num) // math.log(2)) if num > 0 else 0
+        exponent = int(math.log2(num)) if num > 0 else 0
         while exponent >= 0:
             base = num // (2**exponent)
             rem = num - (base * (2**exponent))
