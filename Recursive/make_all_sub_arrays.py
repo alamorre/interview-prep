@@ -12,3 +12,12 @@ def make_all_sub_arrays(nums):
     return results
 
 pprint.pprint(make_all_sub_arrays([1,2,3,4]))
+
+def rec_arrays(string, sol):
+    if string == "": return string
+    for i in range(0, len(string)):
+        sol.append(string[0:i+1]) # honours -1 and that's already in there
+    rec_arrays(string[1:], sol)
+sol = [] 
+rec_arrays('banana', sol)
+print(sol)
