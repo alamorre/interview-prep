@@ -23,6 +23,10 @@ class Solution(object):
                 new_neighbours.append(new_neighbor)
 
         return new_node
+    
+n1 = Node(3, [])
+n2 = Node(4, [n1])
+n3 = Node(5, [n1, n2])
 
 """
 I got this right in one try.
