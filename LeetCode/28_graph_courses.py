@@ -58,3 +58,26 @@ Use this example to build a DAG
 - since numCourses is like 100 max just make a flat list (set would work too)
 Why would checked and answers both be needed?
 """
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        graph = {} # node: neighbours
+        for num in range(numCourses):
+            graph[num] = []
+        for prerequisite in prerequisites:
+            graph[prerequisite[1]].append(prerequisite[0])
+                    
+        def backtrack_is_dag(num, path) -> bool:
+            nonlocal graph
+            if num in path: return False # cycle!
+            path.add(num)
+            for neighbour in graph[num]:
+                if not backtrack_is_dag(neighbour, path):
+                    return False
+            path.remove(num)
+            return True
+
+        for num in range(numCourses):
+            if not backtrack_is_dag(num, set()):
+                return False
+        return True
+        

@@ -12,6 +12,7 @@ class Solution:
             anagram_list.append(word)
             ans_dict[str(char_counts)] = anagram_list
         return list(ans_dict.values())
+    [].pop(0)
 
 print(Solution().groupAnagrams(["eat","tea","tan","ate","nat","bat"]))
 
